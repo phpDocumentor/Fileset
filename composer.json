@@ -1,0 +1,12 @@
+{
+    "name": "phpdocumentor/fileset",
+    "description": "Fileset component for collecting a set of files given directories and file paths",
+    "keywords": ["phpdoc", "files", "fileset"],
+    "homepage": "http://www.phpdoc.org",
+    "license": "MIT",
+    "autoload": { "psr-0":{ "": "src/" } },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/finder": "2.*"
+    }
+}

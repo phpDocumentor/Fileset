@@ -1,0 +1,25 @@
+{
+    "hash": "cc667c680fe02b61313dc15667983df9",
+    "packages": [
+        {
+            "package": "symfony/finder",
+            "version": "dev-master",
+            "source-reference": "360dc8c000efe2cf003deecd6777ea5d364fe23d",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/finder",
+            "version": "dev-master",
+            "source-reference": "360dc8c000efe2cf003deecd6777ea5d364fe23d"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}
