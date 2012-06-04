@@ -2,24 +2,19 @@
 
 namespace phpDocumentor\Fileset;
 
-class File extends \SplFileObject
+class File extends \SplFileInfo
 {
     /**
-     * Open file for reading and writing, and if it doesn't exist create it.
+     * Open file for reading, and if it doesn't exist create it.
      *
      * @param string|\SplFileInfo $file
      *
      * @throws \InvalidArgumentException if an invalid type was passed
      */
-    public function __construct($file, $mode = 'a+')
+    public function __construct($file)
     {
         if ($file instanceof \SplFileInfo) {
             $file = $file->getPathname();
-        }
-
-        // phar files are forced to be read-only
-        if (substr($file, 0, 7) === 'phar://') {
-            $mode = 'r';
         }
 
         if (!is_string($file)) {
@@ -29,7 +24,7 @@ class File extends \SplFileObject
             );
         }
 
-        parent::__construct($file, $mode, false);
+        parent::__construct($file);
     }
 
     /**
@@ -79,10 +74,12 @@ class File extends \SplFileObject
      */
     public function fread()
     {
+        $file = $this->openFile();
         $result = '';
-        foreach ($this as $line) {
+        foreach ($file as $line) {
             $result .= $line;
         }
+
         return $result;
     }
 
