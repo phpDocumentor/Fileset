@@ -7,6 +7,9 @@
     "autoload": { "psr-0":{ "": "src/" } },
     "require": {
         "php": ">=5.3.3",
-        "symfony/finder": "2.*"
+        "symfony/finder": "@stable"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
     }
 }
