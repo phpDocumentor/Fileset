@@ -51,7 +51,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->fixture->append('*r/');
         $expected = ($this->isWindows)
             ? '/((?:.*\\\\.*r\\\?.*|.*r\\\\.*))$/'
-            : '/((?:.*\/.*r\?.*|.*r\/.*))$/'
+            : '/((?:.*\/.*r\/?.*|.*r\/.*))$/'
         ;
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
@@ -64,7 +64,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->fixture->append('*r/');
         $expected = ($this->isWindows)
             ? '/((?:.*\\\\.*r\\\?.*|.*r\\\\.*))$/'
-            : '/((?:.*\/.*r\?.*|.*r\/.*))$/'
+            : '/((?:.*\/.*r\/?.*|.*r\/.*))$/'
         ;
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
