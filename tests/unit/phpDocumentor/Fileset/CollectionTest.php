@@ -31,9 +31,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /* addDirectory() ***************************************************/
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::addDirectory() */
     public function testAddDirectoryCanSeePharContents()
     {
         // read the phar test fixture
@@ -53,9 +51,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::addDirectory() */
     public function testAddDirectoryCanSeeDirectoryContents()
     {
         // load the unit test folder
@@ -71,9 +67,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::addDirectory() */
     public function testAddDirectoryWhenIgnorePatternHidesEverything()
     {
         $this->fixture->getIgnorePatterns()->append('*r/Fileset*.php');
@@ -93,9 +87,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::addDirectory() */
     public function testAddDirectoryWhenIgnorePatternHidesSomething()
     {
         $this->fixture->getIgnorePatterns()->append('*r/Fileset/*Ig*.php');
@@ -117,9 +109,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /* getFilenames() ***************************************************/
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::getFilenames() */
     public function testGetFilenamesCanSeePharContents()
     {
         // read the phar test fixture
@@ -139,9 +129,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::getFilenames() */
     public function testGetFilenamesCanSeeDirectoryContents()
     {
         // load the unit test folder
@@ -157,9 +145,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::getFilenames() */
     public function testGetFilenamesWhenIgnorePatternHidesEverything()
     {
         $this->fixture->getIgnorePatterns()->append('*r/Fileset*.php');
@@ -179,9 +165,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection::getFilenames() */
     public function testGetFilenamesWhenIgnorePatternHidesSomething()
     {
         $this->fixture->getIgnorePatterns()->append('*r/Fileset/*Ig*.php');

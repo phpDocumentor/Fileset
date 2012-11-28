@@ -35,17 +35,13 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::getRegularExpression()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::getRegularExpression() */
     public function testGetRegularExpressionWhenGivenNoPatternsReturnsNothing()
     {
         $this->assertEquals('', $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::getRegularExpression()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::getRegularExpression() */
     public function testGetRegularExpressionWhenGivenOnePatternsReturnsOneString()
     {
         $this->fixture->append('*r/');
@@ -56,9 +52,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant() */
     public function testtestConvertToPregCompliantForGlobbedDir()
     {
         $this->fixture->append('*r/');
@@ -69,9 +63,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant() */
     public function testConvertToPregCompliantForFilenameMask()
     {
         $this->fixture->append('Fileset*');
@@ -82,9 +74,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant() */
     public function testConvertToPregCompliantForFilenameMaskDotExtension()
     {
         $this->fixture->append('Fileset*.php');
@@ -95,9 +85,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant() */
     public function testConvertToPregCompliantForGlobbedDirAndFilenameMaskDotExtension()
     {
         $this->fixture->append('*r/Fileset*.php');
@@ -108,9 +96,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant() */
     public function testConvertToPregCompliantForThreeStars()
     {
         $this->fixture->append('***');
@@ -121,9 +107,7 @@ class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->fixture->getRegularExpression());
     }
 
-    /**
-     * @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant()
-     */
+    /** @covers \phpDocumentor\Fileset\Collection\IgnorePatterns::convertToPregCompliant() */
     public function testConvertToPregCompliantForPlainString()
     {
         $this->fixture->append('plainString');
