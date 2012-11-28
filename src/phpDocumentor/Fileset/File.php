@@ -107,6 +107,8 @@ class File extends \SplFileInfo
      * @throws \InvalidArgumentException if file is not in the project root.
      *
      * @return string
+     *
+     * @todo this protected method is unused in this class... can it be removed?
      */
     protected function getFilenameRelativeToRoot($root_path)
     {
