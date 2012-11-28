@@ -73,11 +73,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
             '\RuntimeException',
             'The finfo extension or mime_content_type function are needed to determine the Mime Type for this file.'
         );
-        $this->assertEquals('foo', $file->getMimeType());
+        $file->getMimeType();
     }
 
     /** @covers \phpDocumentor\Fileset\File::getMimeType() */
-    public function testGetMimeTypeWithValidButEmptySplFileInfoObjectSucceeds()
+    public function testGetMimeTypeWithEmptySplFileInfoObjectThrowsException()
     {
         if (false === extension_loaded('fileinfo')) {
             $this->markTestSkipped('Does not apply if fileinfo is not loaded.');
@@ -87,10 +87,42 @@ class FileTest extends \PHPUnit_Framework_TestCase
             '\RuntimeException',
             'Failed to read file info via finfo'
         );
-        $this->assertEquals('foo', $file->getMimeType());
+        $file->getMimeType();
     }
+
+    /** @covers \phpDocumentor\Fileset\File::getMimeType() */
+    public function testGetMimeTypeWithValidSplFileInfoObjectOfThisTestFile()
+    {
+        if (false === extension_loaded('fileinfo')) {
+            $this->markTestSkipped('Does not apply if fileinfo is not loaded.');
+        }
+        $file = new File(new \SplFileInfo(__FILE__));
+        $this->assertEquals('text/x-php', $file->getMimeType());
+    }
+
     /* fread() ******************************/
 
-    /* getFilenameRelativeToRoot() ******************************/
+    /** @covers \phpDocumentor\Fileset\File::fread() */
+    public function testFreadWithEmptySplFileInfoObjectThrowsException()
+    {
+        $file = new File(new \SplFileInfo('foo.txt'));
+        $this->setExpectedException(
+            '\RuntimeException',
+            'Unable to open file'
+        );
+        $file->fread();
+    }
 
+    /** @covers \phpDocumentor\Fileset\File::fread() */
+    public function testFreadWithValidSplFileInfoObjectOfThisTestFile()
+    {
+        $file = new File(new \SplFileInfo(__FILE__));
+        $expected = <<<END
+<?php
+/**
+ * phpDocumentor
+END;
+        $actual = substr($file->fread(), 0, 26);
+        $this->assertEquals($expected, $actual);
+    }
 }
