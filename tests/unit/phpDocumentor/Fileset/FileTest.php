@@ -21,6 +21,24 @@ namespace phpDocumentor\Fileset;
  */
 class FileTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Get the pathed name of the test suite's "data" directory.
+     *
+     * The path includes a trailing directory separator.
+     * @return string
+     */
+    protected function getNameOfDataDir()
+    {
+        return
+            __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'data'
+            . DIRECTORY_SEPARATOR
+        ;
+    }
+
     /* __construct() ******************************/
 
     /** @covers \phpDocumentor\Fileset\File::__construct() */
@@ -91,13 +109,13 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @covers \phpDocumentor\Fileset\File::getMimeType() */
-    public function testGetMimeTypeWithValidSplFileInfoObjectOfThisTestFile()
+    public function testGetMimeTypeWithValidSplFileInfoObjectOfTestTextFile()
     {
         if (false === extension_loaded('fileinfo')) {
             $this->markTestSkipped('Does not apply if fileinfo is not loaded.');
         }
-        $file = new File(new \SplFileInfo(__FILE__));
-        $this->assertEquals('text/x-php', $file->getMimeType());
+        $file = new File(new \SplFileInfo($this->getNameOfDataDir() . 'fileWithText.txt'));
+        $this->assertEquals('text/plain', $file->getMimeType());
     }
 
     /* fread() ******************************/
@@ -116,13 +134,12 @@ class FileTest extends \PHPUnit_Framework_TestCase
     /** @covers \phpDocumentor\Fileset\File::fread() */
     public function testFreadWithValidSplFileInfoObjectOfThisTestFile()
     {
-        $file = new File(new \SplFileInfo(__FILE__));
+        $file = new File(new \SplFileInfo($this->getNameOfDataDir() . 'fileWithText.txt'));
         $expected = <<<END
-<?php
-/**
- * phpDocumentor
+one line of text...
+another line of text.
 END;
-        $actual = substr($file->fread(), 0, 26);
+        $actual = $file->fread();
         $this->assertEquals($expected, $actual);
     }
 }
