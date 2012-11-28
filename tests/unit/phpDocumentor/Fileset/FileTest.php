@@ -132,7 +132,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @covers \phpDocumentor\Fileset\File::fread() */
-    public function testFreadWithValidSplFileInfoObjectOfThisTestFile()
+    public function testFreadWithValidSplFileInfoObjectOfTestTextFile()
     {
         $file = new File(new \SplFileInfo($this->getNameOfDataDir() . 'fileWithText.txt'));
         $expected = <<<END
