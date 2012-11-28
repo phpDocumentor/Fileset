@@ -24,6 +24,12 @@ class File extends \SplFileInfo
             );
         }
 
+        if (empty($file)) {
+            throw new \InvalidArgumentException(
+                'Expected filename or object of type SplFileInfo but received nothing at all'
+            );
+        }
+
         parent::__construct($file);
     }
 
