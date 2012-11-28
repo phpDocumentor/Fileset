@@ -81,10 +81,16 @@ class File extends \SplFileInfo
      * Returns the file contents as a string.
      *
      * @return string
+     * @throws \RuntimeException if unable to open the file
      */
     public function fread()
     {
-        $file = $this->openFile();
+        try {
+            $file = $this->openFile('r');
+        } catch (\Exception $exc) {
+            throw new \RuntimeException('Unable to open file', 0, $exc);
+        }
+
         $result = '';
         foreach ($file as $line) {
             $result .= $line;
