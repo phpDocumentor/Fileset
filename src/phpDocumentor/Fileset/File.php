@@ -51,7 +51,11 @@ class File extends \SplFileInfo
                 throw new \RuntimeException('Failed to open finfo');
             }
 
-            $mime = strtolower(finfo_file($finfo, $this->getPathname()));
+            $actualInfo = @finfo_file($finfo, $this->getPathname());
+            if (false === $actualInfo) {
+                throw new \RuntimeException('Failed to read file info via finfo');
+            }
+            $mime = strtolower($actualInfo);
             finfo_close($finfo);
 
             if (!preg_match(
