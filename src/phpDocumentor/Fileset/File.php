@@ -19,8 +19,8 @@ class File extends \SplFileInfo
 
         if (!is_string($file)) {
             throw new \InvalidArgumentException(
-                'Expected filename or object of type SplFileInfo but received'
-                .get_class($file)
+                'Expected filename or object of type SplFileInfo but received '
+                . get_class($file)
             );
         }
 
