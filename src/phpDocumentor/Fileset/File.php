@@ -36,10 +36,10 @@ class File extends \SplFileInfo
     /**
      * Returns the mime type for this file.
      *
-     * @throws \RuntimeException if finfo failed to load and/or mim_content_type
-     *   is unavailable
-     * @throws \LogicException if the mime type could not be interpreted from
-     *   the output of finfo_file
+     * @throws \RuntimeException if finfo failed to load
+     *                           and/or mime_content_type is unavailable
+     * @throws \LogicException if the mime type could not be interpreted
+     *                         from the output of finfo_file
      *
      * @return string
      */
