@@ -15,6 +15,11 @@ namespace phpDocumentor\Fileset;
 /**
  * Files container handling directory scanning, project root detection and ignores.
  *
+ * Always set any filtering options (extensions, ignore patterns, hidden files, symlinks)
+ * _before_ adding any directories or files.  Such filtering is done immediately
+ * upon loading the directory/file.  As such, setting filtering options
+ * _after_ adding directories/files will seem as though your filters were ignored.
+ *
  * @author  Mike van Riel <mike.vanriel@naenius.com>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link    http://phpdoc.org
