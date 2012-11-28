@@ -24,48 +24,43 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     /** @var Collection */
     protected $fixture = null;
 
-    /**
-     * Initializes the fixture for this test.
-     *
-     * @return void
-     */
     protected function setUp()
     {
         $this->fixture = new Collection();
     }
 
-    /**
-     * Tests the addDirectory method.
-     *
-     * @return void
-     */
-    public function testAddDirectory()
-    {
-        // instantiate a new instance because we want to be sure it is clean
-        $fixture = new Collection();
+    /* addDirectory() ***************************************************/
 
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
+     */
+    public function testAddDirectoryCanSeePharContents()
+    {
         // read the phar test fixture
-        $fixture->addDirectory(
+        $this->fixture->addDirectory(
             'phar://'.dirname(__FILE__).'/../../../data/test.phar'
         );
 
         // we know which files are in there; test against it
         $this->assertEquals(
             array(
-                 'phar://' . dirname(__FILE__)
+                'phar://' . dirname(__FILE__)
                     . '/../../../data/test.phar' . DIRECTORY_SEPARATOR . 'folder' . DIRECTORY_SEPARATOR . 'test.php',
-                 'phar://' . dirname(__FILE__)
+                'phar://' . dirname(__FILE__)
                     . '/../../../data/test.phar' . DIRECTORY_SEPARATOR . 'test.php',
             ),
-            $fixture->getFilenames()
+            $this->fixture->getFilenames()
         );
+    }
 
-        // instantiate a new instance because we want to be sure it is clean
-        $fixture = new Collection();
-
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
+     */
+    public function testAddDirectoryCanSeeDirectoryContents()
+    {
         // load the unit test folder
-        $fixture->addDirectory(dirname(__FILE__) . '/../../');
-        $files = $fixture->getFilenames();
+        $this->fixture->addDirectory(dirname(__FILE__) . '/../../');
+        $files = $this->fixture->getFilenames();
         $count = count($files);
 
         // do a few checks to see if it has caught some cases
@@ -74,12 +69,135 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/CollectionTest.php'),
             $files
         );
-
-        // should exclude 1 less
-        $fixture = new Collection();
-        $fixture->getIgnorePatterns()->append('*r/Fileset*.php');
-        $fixture->addDirectory(dirname(__FILE__) . '/../../');
-        $this->assertCount($count -1, $fixture->getFilenames());
     }
 
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
+     */
+    public function testAddDirectoryWhenIgnorePatternHidesEverything()
+    {
+        $this->fixture->getIgnorePatterns()->append('*r/Fileset*.php');
+        $this->fixture->addDirectory(dirname(__FILE__) . '/../../');
+        $files = $this->fixture->getFilenames();
+
+        // this file should have been ignored
+        $this->assertNotContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/CollectionTest.php'),
+            $files
+        );
+
+        // this file should also have been ignored
+        $this->assertNotContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/Collection/IgnorePatternsTest.php'),
+            $files
+        );
+    }
+
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::addDirectory()
+     */
+    public function testAddDirectoryWhenIgnorePatternHidesSomething()
+    {
+        $this->fixture->getIgnorePatterns()->append('*r/Fileset/*Ig*.php');
+        $this->fixture->addDirectory(dirname(__FILE__) . '/../../');
+        $files = $this->fixture->getFilenames();
+
+        // this file should have been seen
+        $this->assertContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/CollectionTest.php'),
+            $files
+        );
+
+        // this file should have been ignored
+        $this->assertNotContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/Collection/IgnorePatternsTest.php'),
+            $files
+        );
+    }
+
+    /* getFilenames() ***************************************************/
+
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
+     */
+    public function testGetFilenamesCanSeePharContents()
+    {
+        // read the phar test fixture
+        $this->fixture->addDirectory(
+            'phar://'.dirname(__FILE__).'/../../../data/test.phar'
+        );
+
+        // we know which files are in there; test against it
+        $this->assertEquals(
+            array(
+                'phar://' . dirname(__FILE__)
+                    . '/../../../data/test.phar' . DIRECTORY_SEPARATOR . 'folder' . DIRECTORY_SEPARATOR . 'test.php',
+                'phar://' . dirname(__FILE__)
+                    . '/../../../data/test.phar' . DIRECTORY_SEPARATOR . 'test.php',
+            ),
+            $this->fixture->getFilenames()
+        );
+    }
+
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
+     */
+    public function testGetFilenamesCanSeeDirectoryContents()
+    {
+        // load the unit test folder
+        $this->fixture->addDirectory(dirname(__FILE__) . '/../../');
+        $files = $this->fixture->getFilenames();
+        $count = count($files);
+
+        // do a few checks to see if it has caught some cases
+        $this->assertGreaterThan(0, $count);
+        $this->assertContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/CollectionTest.php'),
+            $files
+        );
+    }
+
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
+     */
+    public function testGetFilenamesWhenIgnorePatternHidesEverything()
+    {
+        $this->fixture->getIgnorePatterns()->append('*r/Fileset*.php');
+        $this->fixture->addDirectory(dirname(__FILE__) . '/../../');
+        $files = $this->fixture->getFilenames();
+
+        // this file should have been ignored
+        $this->assertNotContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/CollectionTest.php'),
+            $files
+        );
+
+        // this file should also have been ignored
+        $this->assertNotContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/Collection/IgnorePatternsTest.php'),
+            $files
+        );
+    }
+
+    /**
+     * @covers \phpDocumentor\Fileset\Collection::getFilenames()
+     */
+    public function testGetFilenamesWhenIgnorePatternHidesSomething()
+    {
+        $this->fixture->getIgnorePatterns()->append('*r/Fileset/*Ig*.php');
+        $this->fixture->addDirectory(dirname(__FILE__) . '/../../');
+        $files = $this->fixture->getFilenames();
+
+        // this file should have been seen
+        $this->assertContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/CollectionTest.php'),
+            $files
+        );
+
+        // this file should have been ignored
+        $this->assertNotContains(
+            realpath(dirname(__FILE__) . '/../../phpDocumentor/Fileset/Collection/IgnorePatternsTest.php'),
+            $files
+        );
+    }
 }
