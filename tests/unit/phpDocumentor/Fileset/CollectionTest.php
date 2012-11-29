@@ -435,12 +435,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     /** @covers \phpDocumentor\Fileset\Collection::addFile() */
     public function testAddFileWhenGivenEmptyStringThrowsException()
     {
-//         $this->setExpectedException(
-//             '\InvalidArgumentException',
-//             'Expected filename or object of type SplFileInfo but received nothing at all'
-//         );
+        $this->setExpectedException(
+            '\InvalidArgumentException',
+            'Expected filename or object of type SplFileInfo but received nothing at all'
+        );
         $this->fixture->addFile('');
-$this->assertTrue(true, 'Test passed... but why?');
     }
 
     /** @covers \phpDocumentor\Fileset\Collection::addFile() */
@@ -460,6 +459,46 @@ $this->assertTrue(true, 'Test passed... but why?');
 
     /** @covers \phpDocumentor\Fileset\Collection::addFile() */
     public function testAddFileWhenGivenTheSamePathTwiceDoesNotResultInDuplicatedFilenames()
+    {
+        $this->fixture->setAllowedExtensions(array('phar', 'txt'));
+
+        $this->fixture->addFile($this->getNameOfDataDir() . 'test.phar');
+        $this->fixture->addFile($this->getNameOfDataDir() . 'test.phar');
+
+        $files = $this->fixture->getFilenames();
+
+        $this->assertEquals(1, count($files));
+    }
+
+    /* getGlobbedPaths() ***************************************************/
+
+    /** @covers \phpDocumentor\Fileset\Collection::getGlobbedPaths() */
+    public function testGetGlobbedPathsWhenGivenEmptyStringThrowsException()
+    {
+        $this->setExpectedException(
+                        '\InvalidArgumentException',
+                        'Expected filename or object of type SplFileInfo but received nothing at all'
+        );
+        $this->fixture->addFile('');
+    }
+
+    /** @covers \phpDocumentor\Fileset\Collection::getGlobbedPaths() */
+    public function testGetGlobbedPathsWhenGivenOnePathSucceeds()
+    {
+        $this->fixture->addFile($this->getNameOfDataDir() . 'test.phar');
+        $this->assertTrue(true, 'Test passes');
+    }
+
+    /** @covers \phpDocumentor\Fileset\Collection::getGlobbedPaths() */
+    public function testGetGlobbedPathsWhenGivenTheSamePathTwiceIsOk()
+    {
+        $this->fixture->addFile($this->getNameOfDataDir() . 'test.phar');
+        $this->fixture->addFile($this->getNameOfDataDir() . 'test.phar');
+        $this->assertTrue(true, 'Test passes');
+    }
+
+    /** @covers \phpDocumentor\Fileset\Collection::getGlobbedPaths() */
+    public function testGetGlobbedPathsWhenGivenTheSamePathTwiceDoesNotResultInDuplicatedFilenames()
     {
         $this->fixture->setAllowedExtensions(array('phar', 'txt'));
 
