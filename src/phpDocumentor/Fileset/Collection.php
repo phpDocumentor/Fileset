@@ -195,7 +195,8 @@ class Collection extends \ArrayObject
      */
     public function addFile($path)
     {
-        foreach (glob($path) as $path) {
+        $paths = $this->getGlobbedPaths($path);
+        foreach ($paths as $path) {
             $file = new File($path);
             $path = $file->getRealPath()
                 ? $file->getRealPath()
@@ -203,6 +204,28 @@ class Collection extends \ArrayObject
 
             $this[$path] = $file;
         }
+    }
+
+    /**
+     * Get a globbed list out of the given path.
+     *
+     * This wrapper method normalizes for OS-divergent behavior of the native glob() function.
+     * @param string $path
+     * @return array
+     */
+    protected function getGlobbedPaths($path)
+    {
+        $paths = glob($path);
+
+        /*
+         * Windows glob('') returns an array with one empty member...
+         * 'nix glob('') returns an empty array...
+         * we'd prefer to have the File('') constructor throw the exception in this edge case,
+         * so keep the Windows behavior.
+         */
+        $result = (array() === $paths) ? array('') : $paths;
+
+        return $result;
     }
 
     /**
