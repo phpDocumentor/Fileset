@@ -4,12 +4,12 @@
     "keywords": ["phpdoc", "files", "fileset"],
     "homepage": "http://www.phpdoc.org",
     "license": "MIT",
-    "autoload": { "psr-0":{ "": "src/" } },
+    "autoload": { "psr-0":{ "phpDocumentor": ["src/", "tests/unit/"] } },
     "require": {
         "php": ">=5.3.3",
-        "symfony/finder": "@stable"
+        "symfony/finder": "2.*@stable"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable"
+        "phpunit/phpunit": "3.7.*@stable"
     }
 }
