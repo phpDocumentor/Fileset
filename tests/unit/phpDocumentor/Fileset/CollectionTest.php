@@ -53,9 +53,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                  'phar://' . dirname(__FILE__)
-                    . '/../../../data/test.phar/folder/test.php',
+                    . '/../../../data/test.phar' . DIRECTORY_SEPARATOR . 'folder' . DIRECTORY_SEPARATOR . 'test.php',
                  'phar://' . dirname(__FILE__)
-                    . '/../../../data/test.phar/test.php',
+                    . '/../../../data/test.phar' . DIRECTORY_SEPARATOR . 'test.php',
             ),
             $fixture->getFilenames()
         );
