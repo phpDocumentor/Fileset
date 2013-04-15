@@ -19,8 +19,14 @@ class File extends \SplFileInfo
 
         if (!is_string($file)) {
             throw new \InvalidArgumentException(
-                'Expected filename or object of type SplFileInfo but received'
-                .get_class($file)
+                'Expected filename or object of type SplFileInfo but received '
+                . get_class($file)
+            );
+        }
+
+        if (empty($file)) {
+            throw new \InvalidArgumentException(
+                'Expected filename or object of type SplFileInfo but received nothing at all'
             );
         }
 
@@ -30,10 +36,10 @@ class File extends \SplFileInfo
     /**
      * Returns the mime type for this file.
      *
-     * @throws \RuntimeException if finfo failed to load and/or mim_content_type
-     *   is unavailable
-     * @throws \LogicException if the mime type could not be interpreted from
-     *   the output of finfo_file
+     * @throws \RuntimeException if finfo failed to load
+     *                           and/or mime_content_type is unavailable
+     * @throws \LogicException if the mime type could not be interpreted
+     *                         from the output of finfo_file
      *
      * @return string
      */
@@ -45,7 +51,11 @@ class File extends \SplFileInfo
                 throw new \RuntimeException('Failed to open finfo');
             }
 
-            $mime = strtolower(finfo_file($finfo, $this->getPathname()));
+            $actualInfo = @finfo_file($finfo, $this->getPathname());
+            if (false === $actualInfo) {
+                throw new \RuntimeException('Failed to read file info via finfo');
+            }
+            $mime = strtolower($actualInfo);
             finfo_close($finfo);
 
             if (!preg_match(
@@ -71,10 +81,16 @@ class File extends \SplFileInfo
      * Returns the file contents as a string.
      *
      * @return string
+     * @throws \RuntimeException if unable to open the file
      */
     public function fread()
     {
-        $file = $this->openFile();
+        try {
+            $file = $this->openFile('r');
+        } catch (\Exception $exc) {
+            throw new \RuntimeException('Unable to open file', 0, $exc);
+        }
+
         $result = '';
         foreach ($file as $line) {
             $result .= $line;
@@ -91,6 +107,8 @@ class File extends \SplFileInfo
      * @throws \InvalidArgumentException if file is not in the project root.
      *
      * @return string
+     *
+     * @todo this protected method is unused in this class... can it be removed?
      */
     protected function getFilenameRelativeToRoot($root_path)
     {
