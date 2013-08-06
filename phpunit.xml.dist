@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<phpunit bootstrap="vendor/autoload.php" strict="true">
+<phpunit bootstrap="vendor/autoload.php" colors="true" strict="true">
     <testsuites>
         <testsuite name="phpDocumentor Fileset">
             <directory>./tests/</directory>
