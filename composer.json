@@ -7,7 +7,7 @@
     "autoload": { "psr-0":{ "phpDocumentor": ["src/", "tests/unit/"] } },
     "require": {
         "php": ">=5.3.3",
-        "symfony/finder": "~2.1"
+        "symfony/finder": "~2.1|~3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7"
