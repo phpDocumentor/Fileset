@@ -12,6 +12,8 @@
 
 namespace phpDocumentor\Fileset;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Test case for File class.
  *
@@ -19,7 +21,7 @@ namespace phpDocumentor\Fileset;
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link    http://phpdoc.org
  */
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     /**
      * Get the pathed name of the test suite's "data" directory.

@@ -12,6 +12,8 @@
 
 namespace phpDocumentor\Fileset\Collection;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Test case for IgnorePatterns class.
  *
@@ -19,7 +21,7 @@ namespace phpDocumentor\Fileset\Collection;
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link    http://phpdoc.org
  */
-class IgnorePatternsTest extends \PHPUnit_Framework_TestCase
+class IgnorePatternsTest extends TestCase
 {
     /** @var IgnorePatterns */
     protected $fixture = null;

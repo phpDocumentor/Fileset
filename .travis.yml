@@ -1,9 +1,17 @@
 language: php
 php:
-  - 5.3.3
-  - 5.3
   - 5.4
   - 5.5
+  - 7.1
+
+matrix:
+  include:
+    - php: 5.3.3
+      dist: precise
+    - php: 5.3
+      dist: precise
+    - php: 7.1
+      env: DEPENDENCIES=beta
 
 script:
  - vendor/bin/phpunit
@@ -12,6 +20,7 @@ before_script:
  - sudo apt-get -qq update > /dev/null
  - phpenv rehash > /dev/null
  - composer selfupdate --quiet
+ - if [ "$DEPENDENCIES" = "beta" ]; then composer config minimum-stability beta; fi;
  - composer install --dev --prefer-source
  - vendor/bin/phpunit
  - composer update --dev --prefer-source

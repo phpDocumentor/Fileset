@@ -12,7 +12,7 @@
 
 namespace phpDocumentor\Fileset;
 
-use phpDocumentor\Fileset\Collection\IgnorePatterns;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case for Collection class.
@@ -21,7 +21,7 @@ use phpDocumentor\Fileset\Collection\IgnorePatterns;
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link    http://phpdoc.org
  */
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends TestCase
 {
     /** @var Collection */
     protected $fixture = null;
